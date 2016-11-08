@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ilyamur.libgdx.entity.Dot;
 
-public class SplashScreen extends ScreenAdapter {
+public class LibgdxPlaneScreen extends ScreenAdapter {
 
     private SpriteBatch spriteBatch;
 
@@ -35,6 +35,15 @@ public class SplashScreen extends ScreenAdapter {
     private void handleInput(float delta) {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             dot.up();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            dot.right();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            dot.down();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            dot.left();
         }
     }
 }

@@ -26,4 +26,16 @@ public class Dot {
     public void up() {
         y += 2;
     }
+
+    public void right() {
+        x += 2;
+    }
+
+    public void down() {
+        y -= 2;
+    }
+
+    public void left() {
+        x -= 2;
+    }
 }
