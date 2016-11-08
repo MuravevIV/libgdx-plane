@@ -1,41 +1,40 @@
 package com.ilyamur.libgdx.screens;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ilyamur.libgdx.entity.Dot;
 
-public class SplashScreen implements Screen {
+public class SplashScreen extends ScreenAdapter {
+
+    private SpriteBatch spriteBatch;
+
+    private Dot dot;
 
     @Override
     public void show() {
-
+        spriteBatch = new SpriteBatch();
+        dot = new Dot(spriteBatch);
     }
 
     @Override
     public void render(float delta) {
-
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        spriteBatch.begin();
+        update(delta);
+        spriteBatch.end();
     }
 
-    @Override
-    public void resize(int width, int height) {
-
+    private void update(float delta) {
+        handleInput(delta);
+        dot.render();
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
+    private void handleInput(float delta) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            dot.up();
+        }
     }
 }
