@@ -2,7 +2,7 @@ package com.ilyamur.libgdx.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.ilyamur.libgdx.AppGame;
+import com.ilyamur.libgdx.ApplicationGame;
 
 public class DesktopLauncher {
 
@@ -11,6 +11,7 @@ public class DesktopLauncher {
         config.useGL30 = true;
         config.width = 1280;
         config.height = 720;
-        new LwjglApplication(new AppGame(), config);
+        ApplicationGame applicationGame = new ApplicationGame();
+        new LwjglApplication(applicationGame, config);
     }
 }
