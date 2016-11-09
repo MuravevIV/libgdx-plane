@@ -23,21 +23,23 @@ public class AppScreen extends ScreenAdapter {
     private InputEventBus inputEventBus;
 
     @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     private ApplicationGame applicationGame;
 
-    private SpriteBatch spriteBatch;
+    @Autowired
+    private ApplicationSpriteBatch applicationSpriteBatch;
 
+    @Autowired
     private Dot dot;
+
     private ContactArea contactArea;
 
     private final List<Entity> entities = Lists.newArrayList();
 
     @PostConstruct
     public void postConstruct() {
-        spriteBatch = new SpriteBatch();
-        dot = new Dot(spriteBatch);
         entities.add(dot);
-        contactArea = new ContactArea(this, spriteBatch);
+        contactArea = new ContactArea(this, applicationSpriteBatch);
         inputEventBus.register(contactArea);
         applicationGame.setScreen(this);
     }
@@ -45,9 +47,9 @@ public class AppScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        spriteBatch.begin();
+        applicationSpriteBatch.begin();
         updateEntities(delta);
-        spriteBatch.end();
+        applicationSpriteBatch.end();
     }
 
     private void updateEntities(float delta) {

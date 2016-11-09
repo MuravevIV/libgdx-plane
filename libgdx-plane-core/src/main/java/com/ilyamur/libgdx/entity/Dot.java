@@ -4,17 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ilyamur.libgdx.screens.ApplicationSpriteBatch;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Component
 public class Dot implements Entity {
 
     private Texture texture;
     private int x;
     private int y;
 
-    private SpriteBatch spriteBatch;
+    @Autowired
+    private ApplicationSpriteBatch applicationSpriteBatch;
 
-    public Dot(SpriteBatch spriteBatch) {
-        this.spriteBatch = spriteBatch;
+    @PostConstruct
+    public void postConstruct() {
         texture = new Texture(Gdx.files.internal("dot.png"));
         x = Gdx.graphics.getWidth() / 2;
         y = Gdx.graphics.getHeight() / 2;
@@ -23,7 +30,7 @@ public class Dot implements Entity {
     @Override
     public void update(float delta) {
         handleInput();
-        spriteBatch.draw(texture, x, y);
+        applicationSpriteBatch.draw(texture, x, y);
     }
 
     private void handleInput() {
