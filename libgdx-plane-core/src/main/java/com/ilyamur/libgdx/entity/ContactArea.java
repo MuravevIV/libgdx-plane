@@ -1,22 +1,34 @@
 package com.ilyamur.libgdx.entity;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.common.eventbus.Subscribe;
+import com.ilyamur.libgdx.InputEventBus;
 import com.ilyamur.libgdx.event.AppEvent;
 import com.ilyamur.libgdx.event.TouchDown;
-import com.ilyamur.libgdx.screens.AppScreen;
+import com.ilyamur.libgdx.screens.ApplicationScreen;
+import com.ilyamur.libgdx.screens.ApplicationSpriteBatch;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Component
 public class ContactArea {
 
     private static final int HALF_SIZE = 4;
 
-    private final AppScreen appScreen;
-    private final SpriteBatch spriteBatch;
+    @Autowired
+    private ApplicationScreen screen;
 
-    public ContactArea(AppScreen appScreen, SpriteBatch spriteBatch) {
-        this.appScreen = appScreen;
-        this.spriteBatch = spriteBatch;
+    @Autowired
+    private ApplicationSpriteBatch spriteBatch;
+
+    @Autowired
+    private InputEventBus inputEventBus;
+
+    @PostConstruct
+    public void postConstruct() {
+        inputEventBus.register(this);
     }
 
     @Subscribe
@@ -26,7 +38,7 @@ public class ContactArea {
             RedDot redDot = new RedDot(spriteBatch, touchDown.screenX - HALF_SIZE,
                     Gdx.graphics.getHeight() - touchDown.screenY - HALF_SIZE);
 
-            appScreen.addEntity(redDot);
+            screen.addEntity(redDot);
         }
     }
 }
