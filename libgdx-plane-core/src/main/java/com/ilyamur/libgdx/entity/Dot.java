@@ -1,10 +1,11 @@
 package com.ilyamur.libgdx.entity;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Dot {
+public class Dot implements Entity {
 
     private Texture texture;
     private int x;
@@ -19,8 +20,25 @@ public class Dot {
         y = Gdx.graphics.getHeight() / 2;
     }
 
-    public void render() {
+    @Override
+    public void update(float delta) {
+        handleInput();
         spriteBatch.draw(texture, x, y);
+    }
+
+    private void handleInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            up();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            right();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            down();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            left();
+        }
     }
 
     public void up() {
