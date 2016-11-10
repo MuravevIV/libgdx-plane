@@ -12,9 +12,10 @@ import javax.annotation.PostConstruct;
 @Component
 public class Dot implements Entity {
 
+    public static final int VERT_SPEED_IN_SEC = 200;
     private Texture texture;
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
     @Autowired
     private ApplicationSpriteBatch applicationSpriteBatch;
@@ -28,38 +29,38 @@ public class Dot implements Entity {
 
     @Override
     public void update(float delta) {
-        handleInput();
         applicationSpriteBatch.draw(texture, x, y);
+        handleInput(delta);
     }
 
-    private void handleInput() {
+    private void handleInput(float delta) {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            up();
+            up(delta);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            right();
+            right(delta);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            down();
+            down(delta);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            left();
+            left(delta);
         }
     }
 
-    public void up() {
-        y += 2;
+    public void up(float delta) {
+        y += VERT_SPEED_IN_SEC * delta;
     }
 
-    public void right() {
-        x += 2;
+    public void right(float delta) {
+        x += VERT_SPEED_IN_SEC * delta;
     }
 
-    public void down() {
-        y -= 2;
+    public void down(float delta) {
+        y -= VERT_SPEED_IN_SEC * delta;
     }
 
-    public void left() {
-        x -= 2;
+    public void left(float delta) {
+        x -= VERT_SPEED_IN_SEC * delta;
     }
 }
