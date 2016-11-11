@@ -1,12 +1,11 @@
-package com.ilyamur.libgdx.entity;
+package com.ilyamur.libgdx;
 
 import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.Subscribe;
-import com.ilyamur.libgdx.InputEventBus;
+import com.ilyamur.libgdx.entity.RedDot;
 import com.ilyamur.libgdx.event.AppEvent;
 import com.ilyamur.libgdx.event.TouchDown;
 import com.ilyamur.libgdx.screens.ApplicationScreen;
-import com.ilyamur.libgdx.screens.ApplicationSpriteBatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +18,6 @@ public class ContactArea {
 
     @Autowired
     private ApplicationScreen screen;
-
-    @Autowired
-    private ApplicationSpriteBatch spriteBatch;
 
     @Autowired
     private InputEventBus inputEventBus;

@@ -1,10 +1,11 @@
 package com.ilyamur.libgdx.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.common.collect.Lists;
-import com.ilyamur.libgdx.ApplicationGame;
 import com.ilyamur.libgdx.entity.Dot;
 import com.ilyamur.libgdx.entity.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ public class ApplicationScreen extends ScreenAdapter {
 
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    private ApplicationGame applicationGame;
+    private Game game;
 
     @Autowired
-    private ApplicationSpriteBatch spriteBatch;
+    private SpriteBatch spriteBatch;
 
     @Autowired
     private Dot dot;
@@ -31,7 +32,7 @@ public class ApplicationScreen extends ScreenAdapter {
     @PostConstruct
     public void postConstruct() {
         entities.add(dot);
-        applicationGame.setScreen(this);
+        game.setScreen(this);
     }
 
     @Override
