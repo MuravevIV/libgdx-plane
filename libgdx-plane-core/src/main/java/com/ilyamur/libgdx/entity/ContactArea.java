@@ -35,7 +35,7 @@ public class ContactArea {
     public void subscribe(AppEvent appEvent) {
         if (appEvent instanceof TouchDown) {
             TouchDown touchDown = (TouchDown) appEvent;
-            RedDot redDot = new RedDot(spriteBatch, touchDown.screenX - HALF_SIZE,
+            RedDot redDot = new RedDot(touchDown.screenX - HALF_SIZE,
                     Gdx.graphics.getHeight() - touchDown.screenY - HALF_SIZE);
 
             screen.addEntity(redDot);
