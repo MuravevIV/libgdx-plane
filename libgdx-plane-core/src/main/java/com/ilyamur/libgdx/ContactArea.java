@@ -31,15 +31,19 @@ public class ContactArea {
         inputEventBus.register(this);
     }
 
+    private RedDot currentRedDot;
+
     @Subscribe
     public void subscribe(AppEvent appEvent) {
         if (appEvent instanceof TouchDown) {
             TouchDown touchDown = (TouchDown) appEvent;
 
-            RedDot redDot = redDotFactory.create(touchDown.screenX - HALF_SIZE,
+            if (currentRedDot != null) {
+                entityRegistry.remove(currentRedDot);
+            }
+            currentRedDot = redDotFactory.create(touchDown.screenX - HALF_SIZE,
                     Gdx.graphics.getHeight() - touchDown.screenY - HALF_SIZE);
-            entityRegistry.add(redDot);
-
+            entityRegistry.add(currentRedDot);
         }
     }
 }

@@ -15,6 +15,10 @@ public class EntityRegistry {
         entities.add(entity);
     }
 
+    public void remove(Entity entity) {
+        entities.remove(entity);
+    }
+
     public void update(float delta) {
         for (Entity entity : entities) {
             entity.update(delta);
