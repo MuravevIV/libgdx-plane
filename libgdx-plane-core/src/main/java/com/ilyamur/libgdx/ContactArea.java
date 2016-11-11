@@ -3,6 +3,7 @@ package com.ilyamur.libgdx;
 import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.Subscribe;
 import com.ilyamur.libgdx.entity.RedDot;
+import com.ilyamur.libgdx.entity.RedDotFactory;
 import com.ilyamur.libgdx.event.AppEvent;
 import com.ilyamur.libgdx.event.TouchDown;
 import com.ilyamur.libgdx.screens.ApplicationScreen;
@@ -22,6 +23,9 @@ public class ContactArea {
     @Autowired
     private InputEventBus inputEventBus;
 
+    @Autowired
+    private RedDotFactory redDotFactory;
+
     @PostConstruct
     public void postConstruct() {
         inputEventBus.register(this);
@@ -31,7 +35,7 @@ public class ContactArea {
     public void subscribe(AppEvent appEvent) {
         if (appEvent instanceof TouchDown) {
             TouchDown touchDown = (TouchDown) appEvent;
-            RedDot redDot = new RedDot(touchDown.screenX - HALF_SIZE,
+            RedDot redDot = redDotFactory.create(touchDown.screenX - HALF_SIZE,
                     Gdx.graphics.getHeight() - touchDown.screenY - HALF_SIZE);
 
             screen.addEntity(redDot);
