@@ -1,4 +1,6 @@
-package com.ilyamur.libgdx.event;
+package com.ilyamur.libgdx.event.impl;
+
+import com.ilyamur.libgdx.event.AppEvent;
 
 public class TouchDown implements AppEvent {
 

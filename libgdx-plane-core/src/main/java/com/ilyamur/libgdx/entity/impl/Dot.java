@@ -1,10 +1,11 @@
-package com.ilyamur.libgdx.entity;
+package com.ilyamur.libgdx.entity.impl;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ilyamur.libgdx.screens.ApplicationScreen;
+import com.ilyamur.libgdx.entity.Entity;
+import com.ilyamur.libgdx.entity.registry.EntityRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,14 +24,14 @@ public class Dot implements Entity {
     private SpriteBatch spriteBatch;
 
     @Autowired
-    private ApplicationScreen screen;
+    private EntityRegistry entityRegistry;
 
     @PostConstruct
     public void postConstruct() {
         texture = new Texture(Gdx.files.internal("dot.png"));
         x = Gdx.graphics.getWidth() / 2;
         y = Gdx.graphics.getHeight() / 2;
-        screen.addEntity(this);
+        entityRegistry.add(this);
     }
 
     @Override

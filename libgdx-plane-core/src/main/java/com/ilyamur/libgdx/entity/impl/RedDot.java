@@ -1,8 +1,9 @@
-package com.ilyamur.libgdx.entity;
+package com.ilyamur.libgdx.entity.impl;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ilyamur.libgdx.entity.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 

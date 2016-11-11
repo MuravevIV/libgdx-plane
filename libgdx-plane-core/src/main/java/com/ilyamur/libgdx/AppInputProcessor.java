@@ -1,7 +1,7 @@
 package com.ilyamur.libgdx;
 
 import com.badlogic.gdx.Gdx;
-import com.ilyamur.libgdx.event.TouchDown;
+import com.ilyamur.libgdx.event.impl.TouchDown;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
