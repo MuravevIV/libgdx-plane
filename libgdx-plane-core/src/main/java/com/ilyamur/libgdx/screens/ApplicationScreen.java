@@ -6,7 +6,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.common.collect.Lists;
-import com.ilyamur.libgdx.entity.Dot;
 import com.ilyamur.libgdx.entity.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,14 +23,10 @@ public class ApplicationScreen extends ScreenAdapter {
     @Autowired
     private SpriteBatch spriteBatch;
 
-    @Autowired
-    private Dot dot;
-
     private final List<Entity> entities = Lists.newArrayList();
 
     @PostConstruct
     public void postConstruct() {
-        entities.add(dot);
         game.setScreen(this);
     }
 
