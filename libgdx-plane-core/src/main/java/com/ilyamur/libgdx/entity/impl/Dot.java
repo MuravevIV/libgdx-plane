@@ -2,10 +2,16 @@ package com.ilyamur.libgdx.entity.impl;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.ai.steer.behaviors.Pursue;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.ilyamur.libgdx.entity.Entity;
 import com.ilyamur.libgdx.entity.registry.EntityRegistry;
+import com.ilyamur.libgdx.steering.SteeringActor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +19,6 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class Dot implements Entity {
-
-    private static final int VERT_SPEED_IN_SEC = 200;
 
     private Texture texture;
     private float x;
@@ -26,48 +30,30 @@ public class Dot implements Entity {
     @Autowired
     private EntityRegistry entityRegistry;
 
+    public SteeringActor steeringActor;
+
     @PostConstruct
     public void postConstruct() {
         texture = new Texture(Gdx.files.internal("dot.png"));
         x = Gdx.graphics.getWidth() / 2;
         y = Gdx.graphics.getHeight() / 2;
+        setSteeringActor();
         entityRegistry.add(this);
+    }
+
+    private void setSteeringActor() {
+        steeringActor = new SteeringActor(new TextureRegion(texture), false);
+        steeringActor.setPosition(x, y, Align.center);
+        steeringActor.setMaxLinearSpeed(200);
+        steeringActor.setMaxLinearAcceleration(2000);
     }
 
     @Override
     public void update(float delta) {
+        steeringActor.act(delta);
+        Vector2 pos = steeringActor.getPosition();
+        x = pos.x;
+        y = pos.y;
         spriteBatch.draw(texture, x, y);
-        handleInput(delta);
-    }
-
-    private void handleInput(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            up(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            right(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            down(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            left(delta);
-        }
-    }
-
-    private void up(float delta) {
-        y += VERT_SPEED_IN_SEC * delta;
-    }
-
-    private void right(float delta) {
-        x += VERT_SPEED_IN_SEC * delta;
-    }
-
-    private void down(float delta) {
-        y -= VERT_SPEED_IN_SEC * delta;
-    }
-
-    private void left(float delta) {
-        x -= VERT_SPEED_IN_SEC * delta;
     }
 }
