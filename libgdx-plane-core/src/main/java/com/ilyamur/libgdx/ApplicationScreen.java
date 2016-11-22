@@ -24,6 +24,9 @@ public class ApplicationScreen extends ScreenAdapter {
     @Autowired
     private EntityRegistry entityRegistry;
 
+    @Autowired
+    private ApplicationHud applicationHud;
+
     @PostConstruct
     public void postConstruct() {
         game.setScreen(this);
@@ -33,7 +36,11 @@ public class ApplicationScreen extends ScreenAdapter {
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.begin();
+        applicationHud.update(delta);
         entityRegistry.update(delta);
         spriteBatch.end();
+
+        spriteBatch.setProjectionMatrix(applicationHud.stage.getCamera().combined);
+        applicationHud.stage.draw();
     }
 }
