@@ -40,7 +40,7 @@ public class ApplicationScreen extends ScreenAdapter {
         entityRegistry.update(delta);
         spriteBatch.end();
 
-        spriteBatch.setProjectionMatrix(applicationHud.stage.getCamera().combined);
-        applicationHud.stage.draw();
+        spriteBatch.setProjectionMatrix(applicationHud.getStage().getCamera().combined);
+        applicationHud.getStage().draw();
     }
 }
