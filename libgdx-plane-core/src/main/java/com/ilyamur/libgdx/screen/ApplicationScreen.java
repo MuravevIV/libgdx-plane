@@ -1,4 +1,4 @@
-package com.ilyamur.libgdx;
+package com.ilyamur.libgdx.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

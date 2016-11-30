@@ -1,25 +1,19 @@
-package com.ilyamur.libgdx;
+package com.ilyamur.libgdx.input;
 
 import com.badlogic.gdx.Gdx;
-import com.ilyamur.libgdx.event.impl.TouchDown;
-import com.ilyamur.libgdx.stage.hud.HudEntityCarouselSelector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ilyamur.libgdx.input.event.InputEventBus;
+import com.ilyamur.libgdx.input.event.impl.KeyTyped;
+import com.ilyamur.libgdx.input.event.impl.TouchDown;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
 @Service
-public class AppInputProcessor implements InputProcessorAdapter {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AppInputProcessor.class);
+public class ApplicationInputProcessor implements InputProcessorAdapter {
 
     @Autowired
     private InputEventBus inputEventBus;
-
-    @Autowired
-    private HudEntityCarouselSelector hudEntityCarouselSelector;
 
     @PostConstruct
     public void postConstruct() {
@@ -34,9 +28,7 @@ public class AppInputProcessor implements InputProcessorAdapter {
 
     @Override
     public boolean keyTyped(char character) {
-        if (character == 'c') {
-            hudEntityCarouselSelector.next();
-        }
+        inputEventBus.post(new KeyTyped(character));
         return true;
     }
 }

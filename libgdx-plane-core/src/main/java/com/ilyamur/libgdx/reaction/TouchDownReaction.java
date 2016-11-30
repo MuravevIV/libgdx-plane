@@ -1,4 +1,4 @@
-package com.ilyamur.libgdx;
+package com.ilyamur.libgdx.reaction;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
@@ -8,15 +8,16 @@ import com.ilyamur.libgdx.entity.factory.RedDotFactory;
 import com.ilyamur.libgdx.entity.impl.Dot;
 import com.ilyamur.libgdx.entity.impl.RedDot;
 import com.ilyamur.libgdx.entity.registry.EntityRegistry;
-import com.ilyamur.libgdx.event.AppEvent;
-import com.ilyamur.libgdx.event.impl.TouchDown;
+import com.ilyamur.libgdx.input.event.AppEvent;
+import com.ilyamur.libgdx.input.event.InputEventBus;
+import com.ilyamur.libgdx.input.event.impl.TouchDown;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-@Component
-public class ContactArea {
+@Service
+public class TouchDownReaction {
 
     private static final int HALF_SIZE = 4;
 

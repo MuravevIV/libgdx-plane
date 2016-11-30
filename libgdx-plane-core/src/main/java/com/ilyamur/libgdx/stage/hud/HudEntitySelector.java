@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class HudEntityCarouselSelector {
+public class HudEntitySelector {
 
     @Autowired
     private Hud hud;
@@ -33,6 +33,10 @@ public class HudEntityCarouselSelector {
         updateName();
     }
 
+    public EntityType getCurrent() {
+        return playgroundEntityTypes.get(index);
+    }
+
     private void inc() {
         if (index == playgroundEntityTypes.size() - 1) {
             index = 0;
@@ -42,7 +46,7 @@ public class HudEntityCarouselSelector {
     }
 
     private void updateName() {
-        String name = playgroundEntityTypes.get(index).name();
+        String name = getCurrent().name();
         hud.update(name);
     }
 }

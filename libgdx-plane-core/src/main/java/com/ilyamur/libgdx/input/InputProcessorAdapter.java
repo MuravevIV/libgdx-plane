@@ -1,4 +1,4 @@
-package com.ilyamur.libgdx;
+package com.ilyamur.libgdx.input;
 
 import com.badlogic.gdx.InputProcessor;
 

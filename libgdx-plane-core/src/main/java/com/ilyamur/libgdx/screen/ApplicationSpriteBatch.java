@@ -1,4 +1,4 @@
-package com.ilyamur.libgdx;
+package com.ilyamur.libgdx.screen;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.springframework.stereotype.Service;
