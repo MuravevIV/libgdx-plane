@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.math.Vector2;
 import com.google.common.eventbus.Subscribe;
-import com.ilyamur.libgdx.entity.factory.RedDotFactory;
 import com.ilyamur.libgdx.entity.impl.Dot;
 import com.ilyamur.libgdx.entity.impl.RedDot;
 import com.ilyamur.libgdx.entity.impl.WhiteBox;
@@ -26,9 +25,6 @@ public class TouchDownReaction {
 
     @Autowired
     private InputEventBus inputEventBus;
-
-    @Autowired
-    private RedDotFactory redDotFactory;
 
     @Autowired
     private HudEntitySelector hudEntitySelector;
@@ -54,8 +50,7 @@ public class TouchDownReaction {
                         entityRegistry.remove(currentRedDot);
                     }
 
-                    currentRedDot = redDotFactory.create(touchDown.screenX - 4,
-                            Gdx.graphics.getHeight() - touchDown.screenY - 4);
+                    currentRedDot = new RedDot(touchDown.screenX - 4, Gdx.graphics.getHeight() - touchDown.screenY - 4);
                     entityRegistry.add(currentRedDot);
 
                     final Arrive<Vector2> arrive = new Arrive<>(dot.steeringActor, currentRedDot.steeringActor)
