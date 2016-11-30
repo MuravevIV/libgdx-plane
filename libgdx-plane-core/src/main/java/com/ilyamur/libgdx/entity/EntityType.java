@@ -4,7 +4,7 @@ public enum EntityType {
 
     DOT(false),
     RED_DOT(true),
-    BLOCK(true);
+    WHITE_BOX(true);
 
     private final boolean playgroundAvailable;
 
