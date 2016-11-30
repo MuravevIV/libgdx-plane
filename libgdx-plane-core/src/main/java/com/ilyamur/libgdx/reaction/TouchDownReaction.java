@@ -12,6 +12,8 @@ import com.ilyamur.libgdx.input.event.AppEvent;
 import com.ilyamur.libgdx.input.event.InputEventBus;
 import com.ilyamur.libgdx.input.event.impl.TouchDown;
 import com.ilyamur.libgdx.stage.hud.HudEntitySelector;
+import com.ilyamur.libgdx.steering.SteeringActor;
+import com.ilyamur.libgdx.steering.SteeringProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,15 +31,18 @@ public class TouchDownReaction {
     @Autowired
     private HudEntitySelector hudEntitySelector;
 
-    @PostConstruct
-    public void postConstruct() {
-        inputEventBus.register(this);
-    }
+    @Autowired
+    private SteeringProvider steeringProvider;
 
     @Autowired
     private Dot dot;
 
     private RedDot currentRedDot;
+
+    @PostConstruct
+    public void postConstruct() {
+        inputEventBus.register(this);
+    }
 
     @Subscribe
     public void subscribe(AppEvent appEvent) {
@@ -49,14 +54,10 @@ public class TouchDownReaction {
                         dot.steeringActor.setSteeringBehavior(null);
                         entityRegistry.remove(currentRedDot);
                     }
-
                     currentRedDot = new RedDot(touchDown.screenX - 4, Gdx.graphics.getHeight() - touchDown.screenY - 4);
                     entityRegistry.add(currentRedDot);
-
-                    final Arrive<Vector2> arrive = new Arrive<>(dot.steeringActor, currentRedDot.steeringActor)
-                            .setTimeToTarget(0.1f)
-                            .setArrivalTolerance(0.001f)
-                            .setDecelerationRadius(80);
+                    Arrive<Vector2> arrive = steeringProvider.createSoftArrive(dot.steeringActor,
+                            currentRedDot.steeringActor);
                     dot.steeringActor.setSteeringBehavior(arrive);
                     break;
                 case WHITE_BOX:
