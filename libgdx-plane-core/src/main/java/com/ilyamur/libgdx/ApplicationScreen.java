@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ilyamur.libgdx.entity.registry.EntityRegistry;
+import com.ilyamur.libgdx.stage.hud.Hud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class ApplicationScreen extends ScreenAdapter {
     private EntityRegistry entityRegistry;
 
     @Autowired
-    private ApplicationHud applicationHud;
+    private Hud hud;
 
     @PostConstruct
     public void postConstruct() {
@@ -36,11 +37,11 @@ public class ApplicationScreen extends ScreenAdapter {
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.begin();
-        applicationHud.update(delta);
+        hud.update(delta);
         entityRegistry.update(delta);
         spriteBatch.end();
 
-        spriteBatch.setProjectionMatrix(applicationHud.getStage().getCamera().combined);
-        applicationHud.getStage().draw();
+        spriteBatch.setProjectionMatrix(hud.getStage().getCamera().combined);
+        hud.getStage().draw();
     }
 }
