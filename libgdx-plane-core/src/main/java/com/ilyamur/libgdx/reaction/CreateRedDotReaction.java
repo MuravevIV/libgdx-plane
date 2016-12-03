@@ -6,13 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.google.common.eventbus.Subscribe;
 import com.ilyamur.libgdx.entity.impl.Dot;
 import com.ilyamur.libgdx.entity.impl.RedDot;
-import com.ilyamur.libgdx.entity.impl.WhiteBox;
 import com.ilyamur.libgdx.entity.registry.EntityRegistry;
 import com.ilyamur.libgdx.input.event.AppEvent;
 import com.ilyamur.libgdx.input.event.InputEventBus;
 import com.ilyamur.libgdx.input.event.impl.TouchDown;
 import com.ilyamur.libgdx.stage.hud.HudEntitySelector;
-import com.ilyamur.libgdx.steering.SteeringActor;
 import com.ilyamur.libgdx.steering.SteeringProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 
 @Service
-public class TouchDownReaction {
+public class CreateRedDotReaction {
 
     @Autowired
     private EntityRegistry entityRegistry;
@@ -59,11 +57,6 @@ public class TouchDownReaction {
                     Arrive<Vector2> arrive = steeringProvider.createSoftArrive(dot.steeringActor,
                             currentRedDot.steeringActor);
                     dot.steeringActor.setSteeringBehavior(arrive);
-                    break;
-                case WHITE_BOX:
-                    WhiteBox whiteBox = new WhiteBox(touchDown.screenX - 32,
-                            Gdx.graphics.getHeight() - touchDown.screenY - 32);
-                    entityRegistry.add(whiteBox);
                     break;
             }
         }

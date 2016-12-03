@@ -3,11 +3,7 @@ package com.ilyamur.libgdx.entity.impl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Align;
 import com.ilyamur.libgdx.entity.Entity;
-import com.ilyamur.libgdx.steering.SteeringActor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
