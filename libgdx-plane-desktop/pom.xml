@@ -12,14 +12,15 @@
 
     <groupId>libgdx-plane</groupId>
     <artifactId>libgdx-plane-desktop</artifactId>
-    <version>${parent.version}</version>
 
     <properties>
         <mainClass>com.ilyamur.libgdx.desktop.DesktopLauncher</mainClass>
         <workingDirectory>${project.parent.basedir}/libgdx-plane-core/src/main/resources</workingDirectory>
+        <assemblyJarDirectory>${project.build.directory}/assembly-jar/${project.name}</assemblyJarDirectory>
     </properties>
 
     <profiles>
+
         <profile>
             <id>run</id>
             <activation>
@@ -27,6 +28,7 @@
             </activation>
             <build>
                 <plugins>
+
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
@@ -51,9 +53,50 @@
                             <workingDirectory>${workingDirectory}</workingDirectory>
                         </configuration>
                     </plugin>
+
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>assemble</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>${mainClass}</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <outputDirectory>${assemblyJarDirectory}</outputDirectory>
+                            <finalName>${project.name}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 
     <dependencies>
