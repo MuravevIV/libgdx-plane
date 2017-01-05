@@ -1,7 +1,6 @@
 package com.ilyamur.libgdx.reaction;
 
 import com.google.common.eventbus.Subscribe;
-import com.ilyamur.libgdx.input.event.AppEvent;
 import com.ilyamur.libgdx.input.event.InputEventBus;
 import com.ilyamur.libgdx.input.event.impl.KeyTyped;
 import com.ilyamur.libgdx.stage.hud.HudEntitySelector;
@@ -25,13 +24,9 @@ public class SwitchActiveEntityReaction {
     }
 
     @Subscribe
-    public void subscribe(AppEvent appEvent) {
-        if (appEvent instanceof KeyTyped) {
-            KeyTyped keyTyped = (KeyTyped) appEvent;
-
-            if (keyTyped.character == 'c') {
-                hudEntitySelector.next();
-            }
+    public void subscribe(KeyTyped keyTyped) {
+        if (keyTyped.character == 'c') {
+            hudEntitySelector.next();
         }
     }
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.Subscribe;
 import com.ilyamur.libgdx.entity.impl.WhiteBox;
 import com.ilyamur.libgdx.entity.registry.EntityRegistry;
-import com.ilyamur.libgdx.input.event.AppEvent;
 import com.ilyamur.libgdx.input.event.InputEventBus;
 import com.ilyamur.libgdx.input.event.impl.TouchDown;
 import com.ilyamur.libgdx.stage.hud.HudEntitySelector;
@@ -31,16 +30,13 @@ public class CreateWhiteBoxReaction {
     }
 
     @Subscribe
-    public void subscribe(AppEvent appEvent) {
-        if (appEvent instanceof TouchDown) {
-            TouchDown touchDown = (TouchDown) appEvent;
-            switch (hudEntitySelector.getCurrent()) {
-                case WHITE_BOX:
-                    WhiteBox whiteBox = new WhiteBox(touchDown.screenX - 32,
-                            Gdx.graphics.getHeight() - touchDown.screenY - 32);
-                    entityRegistry.add(whiteBox);
-                    break;
-            }
+    public void subscribe(TouchDown touchDown) {
+        switch (hudEntitySelector.getCurrent()) {
+            case WHITE_BOX:
+                WhiteBox whiteBox = new WhiteBox(touchDown.screenX - 32,
+                        Gdx.graphics.getHeight() - touchDown.screenY - 32);
+                entityRegistry.add(whiteBox);
+                break;
         }
     }
 }

@@ -7,7 +7,6 @@ import com.google.common.eventbus.Subscribe;
 import com.ilyamur.libgdx.entity.impl.Dot;
 import com.ilyamur.libgdx.entity.impl.RedDot;
 import com.ilyamur.libgdx.entity.registry.EntityRegistry;
-import com.ilyamur.libgdx.input.event.AppEvent;
 import com.ilyamur.libgdx.input.event.InputEventBus;
 import com.ilyamur.libgdx.input.event.impl.TouchDown;
 import com.ilyamur.libgdx.stage.hud.HudEntitySelector;
@@ -43,22 +42,19 @@ public class CreateRedDotReaction {
     }
 
     @Subscribe
-    public void subscribe(AppEvent appEvent) {
-        if (appEvent instanceof TouchDown) {
-            TouchDown touchDown = (TouchDown) appEvent;
-            switch (hudEntitySelector.getCurrent()) {
-                case RED_DOT:
-                    if (currentRedDot != null) {
-                        dot.steeringActor.setSteeringBehavior(null);
-                        entityRegistry.remove(currentRedDot);
-                    }
-                    currentRedDot = new RedDot(touchDown.screenX - 4, Gdx.graphics.getHeight() - touchDown.screenY - 4);
-                    entityRegistry.add(currentRedDot);
-                    Arrive<Vector2> arrive = steeringProvider.createSoftArrive(dot.steeringActor,
-                            currentRedDot.steeringActor);
-                    dot.steeringActor.setSteeringBehavior(arrive);
-                    break;
-            }
+    public void subscribe(TouchDown touchDown) {
+        switch (hudEntitySelector.getCurrent()) {
+            case RED_DOT:
+                if (currentRedDot != null) {
+                    dot.steeringActor.setSteeringBehavior(null);
+                    entityRegistry.remove(currentRedDot);
+                }
+                currentRedDot = new RedDot(touchDown.screenX - 4, Gdx.graphics.getHeight() - touchDown.screenY - 4);
+                entityRegistry.add(currentRedDot);
+                Arrive<Vector2> arrive = steeringProvider.createSoftArrive(dot.steeringActor,
+                        currentRedDot.steeringActor);
+                dot.steeringActor.setSteeringBehavior(arrive);
+                break;
         }
     }
 }
