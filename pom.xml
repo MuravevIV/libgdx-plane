@@ -19,7 +19,72 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.3.RELEASE</spring.version>
+
+        <pitest.targetClasses>com.ilyamur.libgdx.*</pitest.targetClasses>
+        <pitest.targetTests>com.ilyamur.libgdx.*</pitest.targetTests>
+        <pitest.timestampedReports>false</pitest.timestampedReports>
+        <pitest.threads>4</pitest.threads>
     </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-maven</artifactId>
+                    <version>1.1.5</version>
+                    <configuration>
+                        <timeoutConstant>5000</timeoutConstant>
+                        <targetClasses>
+                            <param>${pitest.targetClasses}</param>
+                        </targetClasses>
+                        <targetTests>
+                            <param>${pitest.targetTests}</param>
+                        </targetTests>
+                        <timestampedReports>${pitest.timestampedReports}</timestampedReports>
+                        <threads>${pitest.threads}</threads>
+                        <historyOutputFile>${project.build.directory}/pit-reports/pitest.history</historyOutputFile>
+                        <historyInputFile>${project.build.directory}/pit-reports/pitest.history</historyInputFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>pitest-mutationCoverage</id>
+                            <goals>
+                                <goal>mutationCoverage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+
+        <profile>
+            <id>pitest</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pitest-mutationCoverage</id>
+                                <phase>test-compile</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 
     <dependencies>
 
